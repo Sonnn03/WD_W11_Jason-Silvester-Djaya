@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
-
+use App\Models\Post;
 $home = function () {
     $data = DB::table('table_home')->get();
 
@@ -31,5 +31,11 @@ Route::get('/blog', function () {
 Route::get('/contact', function () {
     return view('contact', [
         'contacts' => DB::table('table_contact')->get(),
+    ]);
+});
+
+Route::get('/data', function () {
+    return view('data', [
+        'posts' => Post::all()
     ]);
 });
