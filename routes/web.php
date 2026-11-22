@@ -2,40 +2,63 @@
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\View;
 use App\Models\Post;
-$home = function () {
+
+// HOME
+Route::get('/', function () {
     $data = DB::table('table_home')->get();
-
-    return view('home', [
-        'home'  => $data->first(),                          
-        'fokus' => $data->pluck('fokus')->implode(', '),    
+    return View::make('home', [
+        'home' => $data->first(),
+        'fokus' => $data->pluck('fokus')->implode(', '),
     ]);
-};
+});
 
-Route::get('/', $home);
-Route::get('/home', $home);
+Route::get('/home', function () {
+    $data = DB::table('table_home')->get();
+    return View::make('home', [
+        'home' => $data->first(),
+        'fokus' => $data->pluck('fokus')->implode(', '),
+    ]);
+});
 
+// ABOUT
 Route::get('/about', function () {
-    return view('about', [
-        'pendidikan' => DB::table('table_about')->where('jenis', 'pendidikan')->orderByDesc('id')->get(),
-        'pengalaman' => DB::table('table_about')->where('jenis', 'pengalaman')->get(),
+    $pendidikan = DB::table('table_about')
+        ->where('jenis', 'pendidikan')
+        ->orderByDesc('id')
+        ->get();
+    $pengalaman = DB::table('table_about')
+        ->where('jenis', 'pengalaman')
+        ->get();
+    return View::make('about', [
+        'pendidikan' => $pendidikan,
+        'pengalaman' => $pengalaman,
     ]);
 });
 
+// BLOG
 Route::get('/blog', function () {
-    return view('blog', [
-        'blogs' => DB::table('table_blog')->orderByDesc('tanggal_terbit')->get(),
+    $blogs = DB::table('table_blog')
+        ->orderByDesc('tanggal_terbit')
+        ->get();
+    return View::make('blog', [
+        'blogs' => $blogs,
     ]);
 });
 
+// CONTACT
 Route::get('/contact', function () {
-    return view('contact', [
-        'contacts' => DB::table('table_contact')->get(),
+    $contacts = DB::table('table_contact')->get();
+    return View::make('contact', [
+        'contacts' => $contacts,
     ]);
 });
 
+// DATA
 Route::get('/data', function () {
-    return view('data', [
-        'posts' => Post::all()
+    $posts = Post::orderBy('id')->get();
+    return View::make('data', [
+        'posts' => $posts,
     ]);
 });

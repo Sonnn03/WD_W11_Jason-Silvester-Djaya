@@ -10,21 +10,13 @@ use Illuminate\Database\Eloquent\Factories\Factory;
  */
 class PostFactory extends Factory
 {
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
     public function definition(): array
     {
         return [
             'title' => $this->faker->sentence(),
             'author' => $this->faker->name(),
-            'slug' => $this->faker->slug(),
+            'slug' => $this->faker->unique()->slug(),
             'body' => $this->faker->paragraphs(3, true),
-            'created_at' => now(),
-            'updated_at' => now(),
-            //
         ];
     }
 }
