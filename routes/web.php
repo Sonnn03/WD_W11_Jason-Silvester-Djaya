@@ -38,10 +38,17 @@ Route::get('/about', function () {
 });
 
 // BLOG
+// BLOG
 Route::get('/blog', function () {
     $blogs = DB::table('table_blog')
-        ->orderByDesc('tanggal_terbit')
+        ->join('users', 'table_blog.user_id', '=', 'users.id')
+        ->select(
+            'table_blog.*',
+            'users.name as user_name'
+        )
+        ->orderByDesc('table_blog.tanggal_terbit')
         ->get();
+
     return View::make('blog', [
         'blogs' => $blogs,
     ]);

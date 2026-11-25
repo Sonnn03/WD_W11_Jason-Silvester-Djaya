@@ -17,6 +17,8 @@ class PostFactory extends Factory
             'author' => $this->faker->name(),
             'slug' => $this->faker->unique()->slug(),
             'body' => $this->faker->paragraphs(3, true),
+            'created_at' => now(),
+            'updated_at' => now(),
         ];
     }
 }

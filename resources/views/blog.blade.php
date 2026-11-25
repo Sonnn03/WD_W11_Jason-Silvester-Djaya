@@ -19,6 +19,10 @@
                             <time datetime="{{ $blog->tanggal_terbit }}">
                                 {{ \Carbon\Carbon::parse($blog->tanggal_terbit)->locale('id')->translatedFormat('d M Y') }}
                             </time>
+                            <span>&bull;</span>
+                        <span>
+                            Oleh: {{ $blog->user_name }}
+                        </span>
                         </div>
                         <h2 class="text-xl font-bold text-slate-900 dark:text-slate-50 mb-2 leading-tight">
                             <a href="{{ $blog->link }}" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">{{ $blog->judul }}</a>
